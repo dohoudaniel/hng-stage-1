@@ -11,6 +11,7 @@ issues and requests.
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
+from os import environ
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -117,4 +118,5 @@ def classify_number():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(environ.get("PORT", 5000))  # Default to 5000 if not provided
+    app.run(host="0.0.0.0", port=port)  # Listen on all interfaces (0.0.0.0) and use the specified port

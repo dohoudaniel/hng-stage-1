@@ -13,7 +13,7 @@ from flask_cors import CORS
 import requests
 from os import environ
 
-# Initialize Flask app
+# Initialize the Flask app
 app = Flask(__name__)
 CORS(app)
 
@@ -21,7 +21,7 @@ CORS(app)
 app.json.sort_keys = False
 
 
-def is_prime(n):
+def check_prime(n):
     """
     A function to check if a number is prime.
     """
@@ -37,7 +37,7 @@ def is_prime(n):
     return True
 
 
-def is_perfect(n):
+def check_perfect(n):
     """
     A function to check if a number is perfect.
     """
@@ -52,7 +52,7 @@ def is_perfect(n):
     return total == n
 
 
-def is_armstrong(n):
+def check_armstrong(n):
     """
     A function to check if a number is an Armstrong number.
     """
@@ -82,7 +82,6 @@ def get_fun_fact(n):
     except (requests.exceptions.RequestException, ValueError):
         return "No fun fact available"
 
-
 @app.route('/api/classify-number', methods=['GET'])
 def classify_number():
     """
@@ -95,7 +94,7 @@ def classify_number():
     number_param = request.args.get('number')
 
     if not number_param:
-        return jsonify({"number": "alphabet", "error": True}), 400
+        return jsonify({"number": None, "error": True}), 400
 
     try:
         number = int(number_param)
@@ -103,23 +102,24 @@ def classify_number():
         return jsonify({"number": number_param, "error": True}), 400
 
     properties = []
-    check_armstrong = is_armstrong(number)
+    is_armstrong = check_armstrong(number)
     parity = 'even' if number % 2 == 0 else 'odd'
 
-    if check_armstrong:
+    if is_armstrong:
         properties.append('armstrong')
     properties.append(parity)
 
     return jsonify({
         "number": number,
-        "is_prime": is_prime(number),
-        "is_perfect": is_perfect(number),
+        "is_prime": check_prime(number),
+        "is_perfect": check_perfect(number),
         "properties": properties,
         "digit_sum": sum_digits(number),
         "fun_fact": get_fun_fact(number)
     })
 
 
+# Running the Flask app
 if __name__ == '__main__':
     port = int(environ.get("PORT", 5000))  # Default to 5000 if not provided
     app.run(host="0.0.0.0", port=port)  # Listen on all interfaces (0.0.0.0) and use the specified port

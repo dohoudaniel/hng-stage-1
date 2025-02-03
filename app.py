@@ -79,6 +79,8 @@ def classify_number():
 
     # Convert the number to an integer
     number = int(number)
+    # Convert the number to an absolute value
+    number = abs(number)
     # Checking the mathematical properties of the number
     # using the defined functions in the module above
     prime = is_prime(number)

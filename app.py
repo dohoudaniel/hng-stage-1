@@ -17,6 +17,9 @@ from os import environ
 app = Flask(__name__)
 CORS(app)
 
+# Disable key sorting for Flask's JSON encoder (as requested in requirements)
+app.json.sort_keys = False
+
 
 def is_prime(n):
     """

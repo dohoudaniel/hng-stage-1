@@ -52,6 +52,17 @@ def is_armstrong(n):
     return sum(int(digit) ** power for digit in digits) == n
 
 
+def is_float(value):
+    """
+    A function to check if a value is a valid float.
+    """
+    try:
+        float(value)  # Try to convert to float
+        return True
+    except ValueError:
+        return False
+
+
 def digit_sum(n):
     """
     A function to calculate the sum of the digits of a number.
@@ -70,13 +81,17 @@ def classify_number():
     # Get the number parameter from the query string
     number = request.args.get('number')
 
-    if not number or not number.lstrip('-').isdigit():  # not number.isdigit():
+    if not number or not number.lstrip('-').isdigit() and not is_float(number):  # not number.isdigit():
         data = {
             "number": "alphabet",
             "error": True
         }
         return jsonify(data), 400
 
+    # Convert the number to a float
+    number = float(number)
+    # Convert the number to an absolute value
+    number = abs(number)
     # Convert the number to an integer
     number = int(number)
     # Convert the number to an absolute value

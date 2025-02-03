@@ -146,7 +146,7 @@ def page_not_found(e):
     # return redirect('/')
     data = {
         "number": "alphabet",
-        "error": True
+        "error": myStr
     }
     return jsonify(data), 404
 

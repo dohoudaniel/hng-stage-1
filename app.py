@@ -70,7 +70,7 @@ def classify_number():
     # Get the number parameter from the query string
     number = request.args.get('number')
 
-    if not number or not number.isdigit():
+    if not number or not number.lstrip('-').isdigit():  # not number.isdigit():
         data = {
             "number": "alphabet",
             "error": True

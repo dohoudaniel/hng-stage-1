@@ -17,6 +17,9 @@ import requests
 app = Flask(__name__)
 CORS(app)  # Enable Cross Origin Resource Sharing (CORS)
 
+# A variable
+myStr = "true"
+
 # Disable key sorting for Flask's JSON encoder (as requested in requirements)
 app.json.sort_keys = False
 
@@ -81,10 +84,10 @@ def classify_number():
     # Get the number parameter from the query string
     number = request.args.get('number')
 
-    if not number or not number.lstrip('-').isdigit() and not is_float(number):  # not number.isdigit():
+    if not number or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
         data = {
             "number": "alphabet",
-            "error": True
+            "error": myStr
         }
         return jsonify(data), 400
 
@@ -95,7 +98,7 @@ def classify_number():
     # Convert the number to an integer
     number = int(number)
     # Convert the number to an absolute value
-    number = abs(number)
+    # number = abs(number)
     # Checking the mathematical properties of the number
     # using the defined functions in the module above
     prime = is_prime(number)

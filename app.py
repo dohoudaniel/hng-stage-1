@@ -93,30 +93,49 @@ def classify_number():
         }
         return jsonify(data), 400
 
-    if not number or not isinstance(number, int):  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
-        data = {
-            "number": "alphabet",
-            "error": True  # myStr
-        }
-        return jsonify(data), 400
+    # if not number or not isinstance(number, int):  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
+    #     data = {
+    #         "number": "alphabet",
+    #         "error": True  # myStr
+    #     }
+    #     return jsonify(data), 400
 
-    if number == "null":  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
-        data = {
-            "number": "alphabet",
-            "error": True  # myStr
-        }
-        return jsonify(data), 400
+    # if number == "null" or number == None:  # or (not number.lstrip('-').isdigit() and not is_float(number)) not number.isdigit():
+    #     data = {
+    #         "number": "alphabet",
+    #         "error": True  # myStr
+    #     }
+    #     return jsonify(data), 400
 
     # Convert the number to a float
     # number = float(number)
     # Convert the number to an absolute value
     # number = abs(number)
     # Convert the number to an integer
-    number = int(number)
+    # number = int(number)
     # Convert the number to an absolute value
     # number = abs(number)
     # Checking the mathematical properties of the number
     # using the defined functions in the module above
+    # prime = is_prime(number)
+    # perfect = is_perfect(number)
+    # armstrong = is_armstrong(number)
+    # sum_digits = digit_sum(number)
+    # parity = "odd" if number % 2 != 0 else "even"
+    # # Checking for Armstrong properties and parity
+    # properties = []
+    # if armstrong:
+    #     properties.append("armstrong")
+    # properties.append(parity)
+
+    try:
+        number = int(number)
+    except ValueError:
+        return jsonify({
+            "number": "alphabet",
+            "error": True}
+        ), 400
+
     prime = is_prime(number)
     perfect = is_perfect(number)
     armstrong = is_armstrong(number)

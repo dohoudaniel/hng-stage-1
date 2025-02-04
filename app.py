@@ -86,7 +86,14 @@ def classify_number():
     # Get the number parameter from the query string
     number = request.args.get('number')
 
-    if not number or number == "null":  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
+    if not number:  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
+        data = {
+            # "number": "alphabet",
+            "error": True  # myStr
+        }
+        return jsonify(data), 400
+    
+    if number == "null":  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
         data = {
             "number": "alphabet",
             "error": True  # myStr

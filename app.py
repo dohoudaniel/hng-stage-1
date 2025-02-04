@@ -92,7 +92,14 @@ def classify_number():
             "error": True  # myStr
         }
         return jsonify(data), 400
-    
+
+    if not number or not isinstance(number, int):  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
+        data = {
+            "number": "alphabet",
+            "error": True  # myStr
+        }
+        return jsonify(data), 400
+
     if number == "null":  # or (not number.lstrip('-').isdigit() and not is_float(number)):  # not number.isdigit():
         data = {
             "number": "alphabet",
